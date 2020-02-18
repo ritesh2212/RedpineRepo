@@ -1,0 +1,282 @@
+digraph DAG {
+	rankdir=TB;
+Conv_11[
+	label = "{{<Input>Input}|{Transpose\lname : Conv_11\lInput : float\<6 x 1 x 5 x 5\>\lShuffle : [0, 2, 3, 1]\lLayout : NHWC\lusers : 1\lResult : float\<6 x 5 x 5 x 1\>\l}|{<Result>Result}}"
+	shape = "record"
+	style="filled,rounded"
+	fillcolor=LightSkyBlue
+penwidth = 2];
+
+conv1_weight[
+	label = "{{Constant\lname : \"conv1_weight\"\llayout : *\loutput : float\<6 x 1 x 5 x 5\>\lusers : 1\l}|{<Output>Output}}"
+	shape = "record"
+	style="filled,rounded"
+	fillcolor=Snow3 color=DeepSkyBlue4
+penwidth = 2];
+
+Conv_11__1[
+	label = "{{<Input>Input}|{Transpose\lname : Conv_11__1\lInput : float\<1 x 1 x 28 x 28\>\lShuffle : [0, 2, 3, 1]\lLayout : NHWC\lusers : 1\lResult : float\<1 x 28 x 28 x 1\>\l}|{<Result>Result}}"
+	shape = "record"
+	style="filled,rounded"
+	fillcolor=LightSkyBlue
+penwidth = 2];
+
+input_1[
+	label = "{{Placeholder\lname : \"input_1\"\llayout : *\loutput : float\<1 x 1 x 28 x 28\>\lusers : 1\ltrainable : 0\l}|{<Output>Output}}"
+	shape = "record"
+	style="filled,rounded"
+	fillcolor=MistyRose1
+penwidth = 2];
+
+Conv_11__2[
+	label = "{{<Input>Input|<Filter>Filter|<Bias>Bias}|{Convolution\lname : Conv_11__2\lInput : float\<1 x 28 x 28 x 1\>\lFilter : float\<6 x 5 x 5 x 1\>\lBias : float\<6\>\lKernels : [5, 5]\lStrides : [1, 1]\lPads : [2, 2, 2, 2]\lGroup : 1\lDilation : 1\lLayout : NHWC\lFusedActivation : \lusers : 1\lResult : float\<1 x 28 x 28 x 6\>\l}|{<Result>Result}}"
+	shape = "record"
+	style="filled,rounded"
+	fillcolor=Thistle1
+penwidth = 2];
+
+conv1_bias[
+	label = "{{Constant\lname : \"conv1_bias\"\llayout : *\loutput : float\<6\>\lusers : 1\l}|{<Output>Output}}"
+	shape = "record"
+	style="filled,rounded"
+	fillcolor=Snow3 color=DeepSkyBlue4
+penwidth = 2];
+
+MaxPool_13__1[
+	label = "{{<Input>Input}|{MaxPool\lname : MaxPool_13__1\lInput : float\<1 x 28 x 28 x 6\>\lKernels : [2, 2]\lStrides : [2, 2]\lPads : [0, 0, 0, 0]\lLayout : 0\lusers : 1\lResult : float\<1 x 14 x 14 x 6\>\lArgmax : index64\<1 x 14 x 14 x 6\>\l}|{<Result>Result|<Argmax>Argmax}}"
+	shape = "record"
+	style="filled,rounded"
+	fillcolor=AliceBlue
+penwidth = 2];
+
+Relu_12__1[
+	label = "{{<Input>Input}|{Relu\lname : Relu_12__1\lInput : float\<1 x 28 x 28 x 6\>\lusers : 1\lResult : float\<1 x 28 x 28 x 6\>\l}|{<Result>Result}}"
+	shape = "record"
+	style="filled,rounded"
+	fillcolor=LavenderBlush1
+penwidth = 2];
+
+Conv_14[
+	label = "{{<Input>Input}|{Transpose\lname : Conv_14\lInput : float\<16 x 6 x 5 x 5\>\lShuffle : [0, 2, 3, 1]\lLayout : NHWC\lusers : 1\lResult : float\<16 x 5 x 5 x 6\>\l}|{<Result>Result}}"
+	shape = "record"
+	style="filled,rounded"
+	fillcolor=LightSkyBlue
+penwidth = 2];
+
+conv2_weight[
+	label = "{{Constant\lname : \"conv2_weight\"\llayout : *\loutput : float\<16 x 6 x 5 x 5\>\lusers : 1\l}|{<Output>Output}}"
+	shape = "record"
+	style="filled,rounded"
+	fillcolor=Snow3 color=DeepSkyBlue4
+penwidth = 2];
+
+Conv_14__2[
+	label = "{{<Input>Input|<Filter>Filter|<Bias>Bias}|{Convolution\lname : Conv_14__2\lInput : float\<1 x 14 x 14 x 6\>\lFilter : float\<16 x 5 x 5 x 6\>\lBias : float\<16\>\lKernels : [5, 5]\lStrides : [1, 1]\lPads : [0, 0, 0, 0]\lGroup : 1\lDilation : 1\lLayout : NHWC\lFusedActivation : \lusers : 1\lResult : float\<1 x 10 x 10 x 16\>\l}|{<Result>Result}}"
+	shape = "record"
+	style="filled,rounded"
+	fillcolor=Thistle1
+penwidth = 2];
+
+conv2_bias[
+	label = "{{Constant\lname : \"conv2_bias\"\llayout : *\loutput : float\<16\>\lusers : 1\l}|{<Output>Output}}"
+	shape = "record"
+	style="filled,rounded"
+	fillcolor=Snow3 color=DeepSkyBlue4
+penwidth = 2];
+
+MaxPool_16__1[
+	label = "{{<Input>Input}|{MaxPool\lname : MaxPool_16__1\lInput : float\<1 x 10 x 10 x 16\>\lKernels : [2, 2]\lStrides : [2, 2]\lPads : [0, 0, 0, 0]\lLayout : 0\lusers : 1\lResult : float\<1 x 5 x 5 x 16\>\lArgmax : index64\<1 x 5 x 5 x 16\>\l}|{<Result>Result|<Argmax>Argmax}}"
+	shape = "record"
+	style="filled,rounded"
+	fillcolor=AliceBlue
+penwidth = 2];
+
+Relu_15__1[
+	label = "{{<Input>Input}|{Relu\lname : Relu_15__1\lInput : float\<1 x 10 x 10 x 16\>\lusers : 1\lResult : float\<1 x 10 x 10 x 16\>\l}|{<Result>Result}}"
+	shape = "record"
+	style="filled,rounded"
+	fillcolor=LavenderBlush1
+penwidth = 2];
+
+MaxPool_16__2[
+	label = "{{<Input>Input}|{Transpose\lname : MaxPool_16__2\lInput : float\<1 x 5 x 5 x 16\>\lShuffle : [0, 3, 1, 2]\lLayout : NCHW\lusers : 1\lResult : float\<1 x 16 x 5 x 5\>\l}|{<Result>Result}}"
+	shape = "record"
+	style="filled,rounded"
+	fillcolor=LightSkyBlue
+penwidth = 2];
+
+Reshape_18[
+	label = "{{<Input>Input}|{Reshape\lname : Reshape_18\lInput : float\<1 x 16 x 5 x 5\>\lDims : [1, 400]\lLayout : *\lusers : 1\lResult : float\<1 x 400\>\l}|{<Result>Result}}"
+	shape = "record"
+	style="filled,rounded"
+	fillcolor=Yellow2
+penwidth = 2];
+
+Gemm_19[
+	label = "{{<Input>Input}|{Transpose\lname : Gemm_19\lInput : float\<120 x 400\>\lShuffle : [1, 0]\lLayout : *\lusers : 1\lResult : float\<400 x 120\>\l}|{<Result>Result}}"
+	shape = "record"
+	style="filled,rounded"
+	fillcolor=LightSkyBlue
+penwidth = 2];
+
+fc1_weight[
+	label = "{{Constant\lname : \"fc1_weight\"\llayout : *\loutput : float\<120 x 400\>\lusers : 1\l}|{<Output>Output}}"
+	shape = "record"
+	style="filled,rounded"
+	fillcolor=Snow3 color=DeepSkyBlue4
+penwidth = 2];
+
+Gemm_19__1[
+	label = "{{<LHS>LHS|<RHS>RHS}|{MatMul\lname : Gemm_19__1\lLHS : float\<1 x 400\>\lRHS : float\<400 x 120\>\lusers : 1\lResult : float\<1 x 120\>\l}|{<Result>Result}}"
+	shape = "record"
+	style="filled,rounded"
+	fillcolor=LavenderBlush1
+penwidth = 2];
+
+Gemm_19__2[
+	label = "{{<LHS>LHS|<RHS>RHS}|{Add\lname : Gemm_19__2\lLHS : float\<1 x 120\>\lRHS : float\<1 x 120\>\lusers : 1\lResult : float\<1 x 120\>\l}|{<Result>Result}}"
+	shape = "record"
+	style="filled,rounded"
+	fillcolor=GhostWhite
+penwidth = 2];
+
+fc1_bias__1[
+	label = "{{Constant\lname : \"fc1_bias__1\"\llayout : **\loutput : float\<1 x 120\>\lusers : 1\l}|{<Output>Output}}"
+	shape = "record"
+	style="filled,rounded"
+	fillcolor=Snow3 color=DeepSkyBlue4
+penwidth = 2];
+
+Relu_20[
+	label = "{{<Input>Input}|{Relu\lname : Relu_20\lInput : float\<1 x 120\>\lusers : 1\lResult : float\<1 x 120\>\l}|{<Result>Result}}"
+	shape = "record"
+	style="filled,rounded"
+	fillcolor=LavenderBlush1
+penwidth = 2];
+
+Gemm_21[
+	label = "{{<Input>Input}|{Transpose\lname : Gemm_21\lInput : float\<84 x 120\>\lShuffle : [1, 0]\lLayout : *\lusers : 1\lResult : float\<120 x 84\>\l}|{<Result>Result}}"
+	shape = "record"
+	style="filled,rounded"
+	fillcolor=LightSkyBlue
+penwidth = 2];
+
+fc2_weight[
+	label = "{{Constant\lname : \"fc2_weight\"\llayout : *\loutput : float\<84 x 120\>\lusers : 1\l}|{<Output>Output}}"
+	shape = "record"
+	style="filled,rounded"
+	fillcolor=Snow3 color=DeepSkyBlue4
+penwidth = 2];
+
+Gemm_21__1[
+	label = "{{<LHS>LHS|<RHS>RHS}|{MatMul\lname : Gemm_21__1\lLHS : float\<1 x 120\>\lRHS : float\<120 x 84\>\lusers : 1\lResult : float\<1 x 84\>\l}|{<Result>Result}}"
+	shape = "record"
+	style="filled,rounded"
+	fillcolor=LavenderBlush1
+penwidth = 2];
+
+Gemm_21__2[
+	label = "{{<LHS>LHS|<RHS>RHS}|{Add\lname : Gemm_21__2\lLHS : float\<1 x 84\>\lRHS : float\<1 x 84\>\lusers : 1\lResult : float\<1 x 84\>\l}|{<Result>Result}}"
+	shape = "record"
+	style="filled,rounded"
+	fillcolor=GhostWhite
+penwidth = 2];
+
+fc2_bias__1[
+	label = "{{Constant\lname : \"fc2_bias__1\"\llayout : **\loutput : float\<1 x 84\>\lusers : 1\l}|{<Output>Output}}"
+	shape = "record"
+	style="filled,rounded"
+	fillcolor=Snow3 color=DeepSkyBlue4
+penwidth = 2];
+
+Relu_22[
+	label = "{{<Input>Input}|{Relu\lname : Relu_22\lInput : float\<1 x 84\>\lusers : 1\lResult : float\<1 x 84\>\l}|{<Result>Result}}"
+	shape = "record"
+	style="filled,rounded"
+	fillcolor=LavenderBlush1
+penwidth = 2];
+
+Gemm_23[
+	label = "{{<Input>Input}|{Transpose\lname : Gemm_23\lInput : float\<10 x 84\>\lShuffle : [1, 0]\lLayout : *\lusers : 1\lResult : float\<84 x 10\>\l}|{<Result>Result}}"
+	shape = "record"
+	style="filled,rounded"
+	fillcolor=LightSkyBlue
+penwidth = 2];
+
+fc3_weight[
+	label = "{{Constant\lname : \"fc3_weight\"\llayout : *\loutput : float\<10 x 84\>\lusers : 1\l}|{<Output>Output}}"
+	shape = "record"
+	style="filled,rounded"
+	fillcolor=Snow3 color=DeepSkyBlue4
+penwidth = 2];
+
+Gemm_23__1[
+	label = "{{<LHS>LHS|<RHS>RHS}|{MatMul\lname : Gemm_23__1\lLHS : float\<1 x 84\>\lRHS : float\<84 x 10\>\lusers : 1\lResult : float\<1 x 10\>\l}|{<Result>Result}}"
+	shape = "record"
+	style="filled,rounded"
+	fillcolor=LavenderBlush1
+penwidth = 2];
+
+Gemm_23__2[
+	label = "{{<LHS>LHS|<RHS>RHS}|{Add\lname : Gemm_23__2\lLHS : float\<1 x 10\>\lRHS : float\<1 x 10\>\lusers : 1\lResult : float\<1 x 10\>\l}|{<Result>Result}}"
+	shape = "record"
+	style="filled,rounded"
+	fillcolor=GhostWhite
+penwidth = 2];
+
+fc3_bias__1[
+	label = "{{Constant\lname : \"fc3_bias__1\"\llayout : **\loutput : float\<1 x 10\>\lusers : 1\l}|{<Output>Output}}"
+	shape = "record"
+	style="filled,rounded"
+	fillcolor=Snow3 color=DeepSkyBlue4
+penwidth = 2];
+
+save_23[
+	label = "{{<Input>Input|<Output>Output}|{Save\lname : save_23\lInput : float\<1 x 10\>\lOutput : float\<1 x 10\>\lusers : 0\l}}"
+	shape = "record"
+	style="filled,rounded"
+	fillcolor=PowderBlue
+penwidth = 2];
+
+A23[
+	label = "{{Placeholder\lname : \"A23\"\llayout : *\loutput : float\<1 x 10\>\lusers : 1\ltrainable : 0\l}|{<Output>Output}}"
+	shape = "record"
+	style="filled,rounded"
+	fillcolor=MistyRose1
+penwidth = 2];
+
+A23:Output -> save_23:Output [dir="both"];
+Gemm_23__1:Result -> Gemm_23__2:LHS;
+Relu_22:Result -> Gemm_23__1:LHS;
+Gemm_21__2:Result -> Relu_22:Input;
+Gemm_21__1:Result -> Gemm_21__2:LHS;
+Gemm_21:Result -> Gemm_21__1:RHS;
+Gemm_23__2:Result -> save_23:Input;
+fc2_weight:Output -> Gemm_21:Input;
+Gemm_19__2:Result -> Relu_20:Input;
+Gemm_19:Result -> Gemm_19__1:RHS;
+Reshape_18:Result -> Gemm_19__1:LHS;
+Relu_12__1:Result -> MaxPool_13__1:Input;
+conv1_bias:Output -> Conv_11__2:Bias;
+conv2_bias:Output -> Conv_14__2:Bias;
+Conv_11:Result -> Conv_11__2:Filter;
+Conv_11__1:Result -> Conv_11__2:Input;
+conv1_weight:Output -> Conv_11:Input;
+Relu_20:Result -> Gemm_21__1:LHS;
+fc1_bias__1:Output -> Gemm_19__2:RHS;
+input_1:Output -> Conv_11__1:Input;
+Gemm_23:Result -> Gemm_23__1:RHS;
+Relu_15__1:Result -> MaxPool_16__1:Input;
+Conv_11__2:Result -> Relu_12__1:Input;
+Gemm_19__1:Result -> Gemm_19__2:LHS;
+fc1_weight:Output -> Gemm_19:Input;
+MaxPool_13__1:Result -> Conv_14__2:Input;
+fc3_bias__1:Output -> Gemm_23__2:RHS;
+Conv_14:Result -> Conv_14__2:Filter;
+fc3_weight:Output -> Gemm_23:Input;
+fc2_bias__1:Output -> Gemm_21__2:RHS;
+conv2_weight:Output -> Conv_14:Input;
+Conv_14__2:Result -> Relu_15__1:Input;
+MaxPool_16__1:Result -> MaxPool_16__2:Input;
+MaxPool_16__2:Result -> Reshape_18:Input;
+}

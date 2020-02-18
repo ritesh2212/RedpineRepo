@@ -1,0 +1,48 @@
+function /home/ritesh/glow/models_onnx/LeNet5.onnx
+declare {
+  %conv1_bias = WeightVar float<6> const // size: 24 // Users: @in 2
+  %conv2_bias = WeightVar float<16> const // size: 64 // Users: @in 8
+  %fc1_bias__1 = WeightVar float<1 x 120> const // size: 480 // Users: @in 18
+  %fc2_bias__1 = WeightVar float<1 x 84> const // size: 336 // Users: @in 23
+  %fc3_bias__1 = WeightVar float<1 x 10> const // size: 40 // Users: @in 27
+  %conv1_weight__1 = WeightVar float<6 x 5 x 5 x 1> const // size: 600 // Users: @in 2
+  %conv2_weight__1 = WeightVar float<16 x 5 x 5 x 6> const // size: 9600 // Users: @in 8
+  %fc2_weight__1 = WeightVar float<120 x 84> const // size: 40320 // Users: @in 21
+  %fc3_weight__1 = WeightVar float<84 x 10> const // size: 3360 // Users: @in 25
+  %fc1_weight__2 = WeightVar float<400 x 120> const // size: 192000 // Users: @in 16
+  %input_1 = WeightVar float<1 x 1 x 28 x 28> mutable // size: 3136 // Users: @in 0
+  %A23 = WeightVar float<1 x 10> mutable // size: 40 // Users: @in 27, @out 25, @out 27
+
+  ; size = 250000 bytes
+}
+
+code {
+  0 %tensorview_reshape_input_1 = tensorview @in %input_1 { Ty: float<1 x 28 x 28 x 1>, Offsets: [0, 0, 0, 0]} // Users: @in 2
+  1 %Conv_11__2_res = allocactivation  { Ty: float<1 x 28 x 28 x 6>} // size: 18816 // Users: @in 5, @out 3, @out 6, @in 3, @out 2
+  2 %Conv_11__2 = convolution @out %Conv_11__2_res, @in %tensorview_reshape_input_1, @in %conv1_weight__1, @in %conv1_bias { Kernels: [5, 5], Strides: [1, 1], Pads: [2, 2, 2, 2], Group: 1, Dilation: 1, Layout: NHWC, FusedActivation: }
+  3 %Relu_12__1_max__2 = cpumaxsplat @out %Conv_11__2_res, @in %Conv_11__2_res { SplatValue: 0.000000e+00}
+  4 %MaxPool_13__1_res = allocactivation  { Ty: float<1 x 14 x 14 x 6>} // size: 4704 // Users: @out 5, @out 9, @in 8
+  5 %MaxPool_13__2 = maxpool @out %MaxPool_13__1_res, @in %Conv_11__2_res { Kernels: [2, 2], Strides: [2, 2], Pads: [0, 0, 0, 0], Layout: 0}
+  6 %dealloc_Conv_11__2_res = deallocactivation @out %Conv_11__2_res // size: 18816
+  7 %Conv_14__2_res = allocactivation  { Ty: float<1 x 10 x 10 x 16>} // size: 6400 // Users: @in 12, @out 10, @out 13, @in 10, @out 8
+  8 %Conv_14__2 = convolution @out %Conv_14__2_res, @in %MaxPool_13__1_res, @in %conv2_weight__1, @in %conv2_bias { Kernels: [5, 5], Strides: [1, 1], Pads: [0, 0, 0, 0], Group: 1, Dilation: 1, Layout: NHWC, FusedActivation: }
+  9 %dealloc_MaxPool_13__1_res = deallocactivation @out %MaxPool_13__1_res // size: 4704
+  10 %Relu_15__1_max__2 = cpumaxsplat @out %Conv_14__2_res, @in %Conv_14__2_res { SplatValue: 0.000000e+00}
+  11 %MaxPool_16__1_res = allocactivation  { Ty: float<1 x 5 x 5 x 16>} // size: 1600 // Users: @in 14, @out 12, @out 17
+  12 %MaxPool_16__2 = maxpool @out %MaxPool_16__1_res, @in %Conv_14__2_res { Kernels: [2, 2], Strides: [2, 2], Pads: [0, 0, 0, 0], Layout: 0}
+  13 %dealloc_Conv_14__2_res = deallocactivation @out %Conv_14__2_res // size: 6400
+  14 %MaxPool_16__1_res__2 = tensorview @in %MaxPool_16__1_res { Ty: float<1 x 400>, Offsets: [0, 0, 0, 0]} // Users: @in 16
+  15 %Gemm_19__2_res = allocactivation  { Ty: float<1 x 120>} // size: 480 // Users: @in 18, @out 16, @in 21, @out 19, @out 22, @in 19, @out 18
+  16 %Gemm_19__3 = matmul @out %Gemm_19__2_res, @in %MaxPool_16__1_res__2, @in %fc1_weight__2
+  17 %dealloc_MaxPool_16__1_res = deallocactivation @out %MaxPool_16__1_res // size: 1600
+  18 %Gemm_19__2 = elementadd @out %Gemm_19__2_res, @in %Gemm_19__2_res, @in %fc1_bias__1
+  19 %Relu_20_max__2 = cpumaxsplat @out %Gemm_19__2_res, @in %Gemm_19__2_res { SplatValue: 0.000000e+00}
+  20 %Gemm_21__2_res = allocactivation  { Ty: float<1 x 84>} // size: 336 // Users: @in 23, @out 21, @in 25, @out 24, @out 26, @in 24, @out 23
+  21 %Gemm_21__1 = matmul @out %Gemm_21__2_res, @in %Gemm_19__2_res, @in %fc2_weight__1
+  22 %dealloc_Gemm_19__2_res = deallocactivation @out %Gemm_19__2_res // size: 480
+  23 %Gemm_21__2 = elementadd @out %Gemm_21__2_res, @in %Gemm_21__2_res, @in %fc2_bias__1
+  24 %Relu_22_max__2 = cpumaxsplat @out %Gemm_21__2_res, @in %Gemm_21__2_res { SplatValue: 0.000000e+00}
+  25 %Gemm_23__1 = matmul @out %A23, @in %Gemm_21__2_res, @in %fc3_weight__1
+  26 %dealloc_Gemm_21__2_res = deallocactivation @out %Gemm_21__2_res // size: 336
+  27 %Gemm_23__2 = elementadd @out %A23, @in %A23, @in %fc3_bias__1
+}
